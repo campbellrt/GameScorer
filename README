@@ -1,0 +1,9 @@
+A android app for keeping score in games (Hearts, etc).
+
+Allows up to 30 re-nameable players.
+
+Goals
+
+To end a game at a certain score.
+To have the option of rounds or turns.
+To have set and custom game types.
