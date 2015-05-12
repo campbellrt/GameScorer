@@ -9,7 +9,11 @@
 
     <string name="title_activity_new_game">New Game</string>
     <string name="button_confirm_players">Confirm</string>
-    <string name="text_num_players_title">Number of Players</string>
+    <string name="text_num_players">Number of Players:</string>
+    <string name="text_game_type">Game Type:</string>
+    <string name="text_turn_type">When to score:</string>
+    <string name="text_win_type">Win type:</string>
+
     <string name="title_activity_name_players">NamePlayersActivity</string>
 
     <string name="button_ok">OK</string>
