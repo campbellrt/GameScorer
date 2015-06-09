@@ -13,10 +13,10 @@ import java.util.List;
 
 public class PlayerScreen extends ActionBarActivity {
 
-    public static final String EXTRA_PLAYER_NAMES = "playerNames";
+    //public static final String EXTRA_PLAYER_NAMES = "playerNames";
+    public static final String EXTRA_GAME = "game";
 
-
-    protected List<PlayerScore> playerScores;
+    //protected List<PlayerScore> playerScores;
 
     private static final int[] PLAYER_VIEW_IDS = { R.id.player_1, R.id.player_2,
             R.id.player_3, R.id.player_4, R.id.player_5, R.id.player_6,
@@ -30,12 +30,15 @@ public class PlayerScreen extends ActionBarActivity {
 
     protected List<PlayerView> playerViews;
 
-
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_player_screen);
+        createGame();
+        setUpWidgets();
     }
 
 
@@ -43,8 +46,7 @@ public class PlayerScreen extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_player_screen, menu);
-        createGame();
-        setUpWidgets();
+
         return true;
     }
 
@@ -67,9 +69,9 @@ public class PlayerScreen extends ActionBarActivity {
 
         playerViews = new ArrayList<PlayerView>();
 
-        for (int i = 0; i < playerScores.size(); i++) {
+        for (int i = 0; i < game.getPlayerScores().size(); i++) {
 
-            PlayerScore playerScore = playerScores.get(i);
+            PlayerScore playerScore = game.getPlayerScores().get(i);
             int resId = PLAYER_VIEW_IDS[i];
             View view = getPlayerScoreView(resId);
 
@@ -91,31 +93,10 @@ public class PlayerScreen extends ActionBarActivity {
 
     private void createGame() {
 
-        if (getIntent().hasExtra(EXTRA_PLAYER_NAMES)) {
+        if (getIntent().hasExtra(EXTRA_GAME)) {
             // starting a new game
-            createNewGame();
+            game = getIntent().getParcelableExtra(EXTRA_GAME);
         }
-    }
-
-
-    private void createNewGame() {
-
-        String[] playerNames = getIntent().getStringArrayExtra(EXTRA_PLAYER_NAMES);
-
-        playerScores = new ArrayList<PlayerScore>();
-
-        for (int i = 0; i < playerNames.length; i++) {
-
-            PlayerScore playerScore = new PlayerScore();
-
-            playerScore.setName(playerNames[i]);
-            playerScore.setPlayerNumber(i);
-            playerScore.setScore(0); //change
-
-            playerScores.add(playerScore);
-        }
-
-
     }
 
 }

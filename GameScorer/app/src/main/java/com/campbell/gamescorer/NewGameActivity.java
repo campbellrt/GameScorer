@@ -36,7 +36,6 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -64,8 +63,8 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
 
         switch (view.getId()) {
             case R.id.button_confirm_players:
-                int numPlayers = Integer.parseInt(numPlayersSpinner.getSelectedItem().toString());
-                startNamePlayersActivity(numPlayers);
+                Game newGame = createNewGame();
+                startNamePlayersActivity(newGame);
 
                 break;
 
@@ -76,8 +75,6 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
     public void setUpWidgets(){
         confirmButton = (Button) findViewById(R.id.button_confirm_players);
         confirmButton.setOnClickListener(this);
-
-
 
         numPlayersSpinner = (Spinner) findViewById(R.id.playersNumberSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -118,10 +115,26 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
 
     }
 
+    private Game createNewGame(){
+        Game game = new Game();
+        int numPlayers = Integer.parseInt(numPlayersSpinner.getSelectedItem().toString());
+        game.setNumPlayers(numPlayers);
 
-    private void startNamePlayersActivity(int numPlayers) {
+        String gameType = gameTypeSpinner.getSelectedItem().toString();
+        game.setGameType(gameType);
+
+        String turnType = turnTypeSpinner.getSelectedItem().toString();
+        game.setTurnType(turnType);
+
+        String winType = winTypeSpinner.getSelectedItem().toString();
+        game.setWinType(winType);
+
+        return game;
+    }
+
+    private void startNamePlayersActivity(Game game) {
         Intent intent = new Intent(this, NamePlayersActivity.class);
-        intent.putExtra(NamePlayersActivity.EXTRA_NUM_PLAYERS, numPlayers);
+        intent.putExtra(NamePlayersActivity.EXTRA_GAME, game);
         startActivity(intent);
 
     }

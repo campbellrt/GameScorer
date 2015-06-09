@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NamePlayersActivity extends ActionBarActivity implements View.OnClickListener {
 
-    public static final String EXTRA_NUM_PLAYERS = "numPlayers";
+    public static final String EXTRA_GAME = "newGame";
 
     private static final int[] PLAYER_VIEW_IDS = { R.id.player_1, R.id.player_2,
             R.id.player_3, R.id.player_4, R.id.player_5, R.id.player_6,
@@ -33,7 +33,7 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
     private Button okButton;
 
-    private int numPlayers;
+    private Game game;
 
     private List<AutoCompleteTextView> playerEditTexts = new ArrayList<AutoCompleteTextView>();
     private List<View> playerViews = new ArrayList<View>();
@@ -44,7 +44,8 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
         // prevents the soft keyboard from immediately popping up
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        numPlayers = getIntent().getIntExtra(EXTRA_NUM_PLAYERS, 0);
+        game = getIntent().getParcelableExtra(EXTRA_GAME);
+        //numPlayers = getIntent().getIntExtra(EXTRA_NUM_PLAYERS, 0);
 
         setContentView(R.layout.activity_name_players);
 
@@ -78,14 +79,13 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.button_ok:
                 // ok button clicked
-
-                String[] playerNames = getPlayerNames();
+                addPlayersToGame();
 
                 //GameActivityHelper.newGame(this, playerNames);
 
                 Intent intent = new Intent(this, PlayerScreen.class);
 
-                intent.putExtra(PlayerScreen.EXTRA_PLAYER_NAMES, playerNames);
+                intent.putExtra(PlayerScreen.EXTRA_GAME, game);
 
                 startActivity(intent);
 
@@ -98,7 +98,7 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
     private void setUpWidgets() {
 
-        for(int i = 0; i <numPlayers; i++){
+        for(int i = 0; i <game.getNumPlayers(); i++){
             int id  = PLAYER_VIEW_IDS[i];
             View view = getPlayerView(id);
             playerViews.add(view);
@@ -114,7 +114,7 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
             playerEditText.setHint(hint);
 
             // final edit text does "action done"
-            if (i == numPlayers - 1) {
+            if (i == game.getNumPlayers() - 1) {
                 playerEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
             }
         }
@@ -124,9 +124,9 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
     }
 
     private String[] getPlayerNames() {
-        String[] playerNames = new String[numPlayers];
+        String[] playerNames = new String[game.getNumPlayers()];
 
-        for (int i = 0; i < numPlayers; i++) {
+        for (int i = 0; i < game.getNumPlayers(); i++) {
 
             if (TextUtils.isEmpty(playerEditTexts.get(i).getText())) {
                 playerNames[i] = playerEditTexts.get(i).getHint().toString();
@@ -146,5 +146,26 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
         }
         return view;
     }
+
+    private void addPlayersToGame() {
+
+        String[] playerNames = getPlayerNames();
+
+        List<PlayerScore> playerScores = new ArrayList<PlayerScore>();
+
+        for (int i = 0; i < playerNames.length; i++) {
+
+            PlayerScore playerScore = new PlayerScore();
+
+            playerScore.setName(playerNames[i]);
+            playerScore.setPlayerNumber(i);
+            playerScore.setScore(0); //change
+
+            playerScores.add(playerScore);
+        }
+
+        game.setPlayerScores(playerScores);
+    }
+
 
 }
