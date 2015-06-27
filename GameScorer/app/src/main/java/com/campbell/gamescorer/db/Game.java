@@ -1,9 +1,8 @@
-package com.campbell.gamescorer;
+package com.campbell.gamescorer.db;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 

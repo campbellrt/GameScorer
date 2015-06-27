@@ -9,13 +9,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.Space;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.campbell.gamescorer.db.Game;
 
 
 public class NewGameActivity extends ActionBarActivity implements View.OnClickListener {
@@ -25,6 +21,7 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
     private Spinner gameTypeSpinner;
     private Spinner turnTypeSpinner;
     private Spinner winTypeSpinner;
+    private EditText winningScoreEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +108,8 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
         adapterWinType.setDropDownViewResource(R.layout.my_simple_spinner_dropdown_item);
         winTypeSpinner.setAdapter(adapterWinType);
 
-
+        winningScoreEditText = (EditText) findViewById(R.id.winningScoreEditText);
+        winningScoreEditText.setText("100");//TODO change to a set default based on the game type( hearts, etc)
 
     }
 
@@ -128,6 +126,18 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
 
         String winType = winTypeSpinner.getSelectedItem().toString();
         game.setWinType(winType);
+
+        int winningScore = -1;
+        try
+        {
+            winningScore = Integer.parseInt(winningScoreEditText.getText().toString());
+        }
+        catch(NumberFormatException e)
+        {
+
+        }
+
+        game.setWinningScore(winningScore);
 
         return game;
     }

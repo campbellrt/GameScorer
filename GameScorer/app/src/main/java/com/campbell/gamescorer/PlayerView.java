@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.campbell.gamescorer.db.PlayerScore;
+
 /**
  * Created by Campbell on 27/04/2015.
  */
@@ -12,7 +14,7 @@ public class PlayerView implements View.OnClickListener, View.OnLongClickListene
 
     private PlayerScore playerScore;
 
-    private TextView scoreTextView, nameTextView;
+    private TextView scoreTextView, nameTextView, roundScoreTextView, roundScoreNameTextView;
 
     private View view;
     private Button minusButton, plusButton;
@@ -35,6 +37,8 @@ public class PlayerView implements View.OnClickListener, View.OnLongClickListene
 
         nameTextView = (TextView) view.findViewById(R.id.player_name);
         scoreTextView = (TextView) view.findViewById(R.id.text_score);
+        roundScoreTextView = (TextView) view.findViewById(R.id.round_text_score);
+        roundScoreNameTextView = (TextView) view.findViewById(R.id.name_round_text_score);
 
         nameTextView.setText(playerScore.getName());
 
@@ -59,6 +63,14 @@ public class PlayerView implements View.OnClickListener, View.OnLongClickListene
         return scoreTextView;
     }
 
+    public TextView getRoundScoreTextView() {
+        return roundScoreTextView;
+    }
+
+    public void setRoundScoreNameTextView(String newName) {
+        roundScoreNameTextView.setText(newName);
+    }
+
     public Button getMinusButton() {
         return minusButton;
     }
@@ -71,17 +83,24 @@ public class PlayerView implements View.OnClickListener, View.OnLongClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_minus:
-                increment(-1);
+                incrementRoundScore(-1);
                 break;
             case R.id.button_plus:
-                increment(1);
+                incrementRoundScore(1);
                 break;
             }
     }
 
-    private void increment(final int delta) {
-        playerScore.setScore(playerScore.getScore() + delta);
+    public void incrementScore() {
+        playerScore.setScore(playerScore.getScore() + playerScore.getRoundScore());
+        roundScoreTextView.setText("0"); //TODO change to a default score
+        playerScore.setRoundScore(0); //TODO change to a default score
         scoreTextView.setText(Long.toString(playerScore.getScore()));
+    }
+
+    private void incrementRoundScore(final int delta) {
+        playerScore.setRoundScore(playerScore.getRoundScore() + delta);
+        roundScoreTextView.setText(Long.toString(playerScore.getRoundScore()));
     }
 
     @Override

@@ -13,6 +13,7 @@
     <string name="text_game_type">Game Type:</string>
     <string name="text_turn_type">When to score:</string>
     <string name="text_win_type">Win type:</string>
+    <string name="text_winning_score">Winning Score:</string>
 
     <string name="title_activity_name_players">NamePlayersActivity</string>
 
@@ -23,5 +24,10 @@
 
     <string name="default_score">0</string>
     <string name="default_player_name">Player</string>
+    <string name="default_name_player_score">Score:</string>
+    <string name="default_name_round_player_score">This round:</string>
+
+
+    <string name="button_end_round">End Round</string>
 
 </resources>

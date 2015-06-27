@@ -1,4 +1,4 @@
-package com.campbell.gamescorer;
+package com.campbell.gamescorer.db;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,6 +14,7 @@ public class PlayerScore implements Parcelable {
     private int id = -1;
     private String name;
     private long score;
+    private long roundScore;
     private int playerNumber;
 
     public PlayerScore() {
@@ -23,6 +24,7 @@ public class PlayerScore implements Parcelable {
         id = in.readInt();
         name = in.readString();
         score = in.readLong();
+        roundScore = in.readLong();
         playerNumber = in.readInt();
     }
 
@@ -36,6 +38,7 @@ public class PlayerScore implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeLong(score);
+        dest.writeLong(roundScore);
         dest.writeInt(playerNumber);
     }
 
@@ -68,6 +71,13 @@ public class PlayerScore implements Parcelable {
     }
     public void setScore(long score) {
         this.score = score;
+    }
+
+    public long getRoundScore() {
+        return roundScore;
+    }
+    public void setRoundScore(long roundScore) {
+        this.roundScore = roundScore;
     }
 
     public int getPlayerNumber() {

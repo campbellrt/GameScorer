@@ -13,6 +13,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
+import com.campbell.gamescorer.db.Game;
+import com.campbell.gamescorer.db.PlayerScore;
+
 import java.util.ArrayList;
 import java.util.List;
 

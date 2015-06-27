@@ -1,17 +1,22 @@
 package com.campbell.gamescorer;
 
+import android.app.AlertDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Button;
+
+import com.campbell.gamescorer.db.Game;
+import com.campbell.gamescorer.db.PlayerScore;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlayerScreen extends ActionBarActivity {
+public class PlayerScreen extends ActionBarActivity implements View.OnClickListener {
 
     //public static final String EXTRA_PLAYER_NAMES = "playerNames";
     public static final String EXTRA_GAME = "game";
@@ -29,6 +34,7 @@ public class PlayerScreen extends ActionBarActivity {
     };
 
     protected List<PlayerView> playerViews;
+    private Button endRoundButton;
 
     private Game game;
 
@@ -80,6 +86,11 @@ public class PlayerScreen extends ActionBarActivity {
             playerViews.add(playerView);
         }
 
+        endRoundButton = (Button) findViewById(R.id.button_end_round);
+        endRoundButton.setOnClickListener(this);
+
+
+
     }
 
     protected View getPlayerScoreView(int resId) {
@@ -99,4 +110,22 @@ public class PlayerScreen extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_end_round:
+                for (int i = 0; i < playerViews.size(); i++) {
+                    playerViews.get(i).incrementScore();
+                }
+                for (int i = 0; i < game.getPlayerScores().size(); i++) {
+                    //TODO make it a seperate function so can check winning conditions.
+                    if (game.getPlayerScores().get(i).getScore() > game.getWinningScore() && game.getWinningScore() != -1){
+                        new AlertDialog.Builder(this)
+                                .setTitle("Winner")
+                                .setMessage("Their is a winner")
+                                .show();
+                    }
+                }
+        }
+    }
 }
