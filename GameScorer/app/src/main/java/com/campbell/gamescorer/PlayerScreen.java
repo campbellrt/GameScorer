@@ -1,8 +1,11 @@
 package com.campbell.gamescorer;
 
 import android.app.AlertDialog;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,8 +14,10 @@ import android.widget.Button;
 
 import com.campbell.gamescorer.db.Game;
 import com.campbell.gamescorer.db.PlayerScore;
+import com.campbell.gamescorer.widget.PlayerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -35,7 +40,7 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
 
     protected List<PlayerView> playerViews;
     private Button endRoundButton;
-
+    public Context gameContext;
     private Game game;
 
     @Override
@@ -74,7 +79,7 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
     private void setUpWidgets() {
 
         playerViews = new ArrayList<PlayerView>();
-
+        gameContext = this;
         for (int i = 0; i < game.getPlayerScores().size(); i++) {
 
             PlayerScore playerScore = game.getPlayerScores().get(i);
@@ -87,6 +92,7 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
         }
 
         endRoundButton = (Button) findViewById(R.id.button_end_round);
+        endRoundButton.setText(getString(R.string.button_end_round) + " " + Integer.toString(game.getNumRounds()));
         endRoundButton.setOnClickListener(this);
 
 
@@ -110,6 +116,55 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
         }
     }
 
+    private void showLeaderBoard(){
+        List<PlayerScore> leaderBoard = game.getPlayerScores();
+        switch (game.getWinType()) {
+            case "Highest Score":
+                Collections.sort(leaderBoard, Collections.reverseOrder(PlayerScore.sortByScore()));
+                break;
+            case "Lowest Score":
+                Collections.sort(leaderBoard, PlayerScore.sortByScore());
+                break;
+        }
+
+        String message = "Leader Board\n\n";
+        int position  = 1;
+        for(PlayerScore person : leaderBoard){
+            message += position +". " + person.getLeaderBoardString();
+            position++;
+        }
+
+
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(leaderBoard.get(0).getName() + " Wins");
+        alert.setMessage(message);
+        alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton("End Game", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Intent intent = new Intent(gameContext, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        alert.show();
+    }
+
+
+    private boolean checkIfWonGame() {
+        if(game.getWinningScore() != -1) {
+            for (int i = 0; i < game.getPlayerScores().size(); i++) {
+                if (game.getPlayerScores().get(i).getScore() >= game.getWinningScore()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -117,15 +172,15 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
                 for (int i = 0; i < playerViews.size(); i++) {
                     playerViews.get(i).incrementScore();
                 }
-                for (int i = 0; i < game.getPlayerScores().size(); i++) {
-                    //TODO make it a seperate function so can check winning conditions.
-                    if (game.getPlayerScores().get(i).getScore() > game.getWinningScore() && game.getWinningScore() != -1){
-                        new AlertDialog.Builder(this)
-                                .setTitle("Winner")
-                                .setMessage("Their is a winner")
-                                .show();
-                    }
+
+                game.setNumRounds(game.getNumRounds()+1);
+                endRoundButton.setText(getString(R.string.button_end_round) + " "
+                        + Integer.toString(game.getNumRounds()));
+
+                if (checkIfWonGame()){
+                    showLeaderBoard();
                 }
+                break;
         }
     }
 }

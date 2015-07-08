@@ -30,4 +30,7 @@
 
     <string name="button_end_round">End Round</string>
 
+    <string name="title_add">Add Value</string>
+    <string name="title_subtract">Subtract Value</string>
+
 </resources>

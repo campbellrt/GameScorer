@@ -1,8 +1,8 @@
 package com.campbell.gamescorer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,8 +38,8 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
     private Game game;
 
-    private List<AutoCompleteTextView> playerEditTexts = new ArrayList<AutoCompleteTextView>();
-    private List<View> playerViews = new ArrayList<View>();
+    private ArrayList<AutoCompleteTextView> playerEditTexts = new ArrayList<AutoCompleteTextView>();
+    private ArrayList<View> playerViews = new ArrayList<View>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,8 +162,9 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
             playerScore.setName(playerNames[i]);
             playerScore.setPlayerNumber(i);
-            playerScore.setScore(0); //change
-
+            playerScore.setScore(0); //TODO: change to a default value
+            playerScore.setRoundScore(0); //TODO: change to a default value
+            playerScore.initRoundScores();
             playerScores.add(playerScore);
         }
 

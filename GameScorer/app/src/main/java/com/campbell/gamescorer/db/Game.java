@@ -16,12 +16,13 @@ public class Game implements Parcelable {
     private int numPlayers;
     private List<PlayerScore> playerScores;
 
-    private String gameType;
+    private String gameType;  // hearts, custom, etc
 
-    private String turnType;
-    private String winType;
+    private String turnType; // round, turn
+    private String winType; // highest score, lowest score
 
     private int winningScore;
+    private int numRounds;
 
 
     public Game() {
@@ -36,6 +37,7 @@ public class Game implements Parcelable {
         winType = in.readString();
 
         winningScore = in.readInt();
+        numRounds = in.readInt();
 
         playerScores = new ArrayList<PlayerScore>();
         while (true) {
@@ -61,6 +63,7 @@ public class Game implements Parcelable {
         dest.writeString(turnType);
         dest.writeString(winType);
         dest.writeInt(winningScore);
+        dest.writeInt(numRounds);
         if (playerScores != null) {
             for (PlayerScore playerScore : playerScores) {
                 dest.writeParcelable(playerScore, 0);
@@ -118,6 +121,13 @@ public class Game implements Parcelable {
     }
     public void setWinningScore(int winningScore) {
         this.winningScore = winningScore;
+    }
+
+    public int getNumRounds() {
+        return this.numRounds;
+    }
+    public void setNumRounds(int numRounds) {
+        this.numRounds = numRounds;
     }
 
     public String getTurnType() {

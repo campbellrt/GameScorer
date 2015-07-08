@@ -1,8 +1,8 @@
 package com.campbell.gamescorer;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,7 +92,7 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
         // Apply the adapter to the spinner
         gameTypeSpinner.setAdapter(adapterGameType);
 
-
+        /*TODO Implement turns
         turnTypeSpinner = (Spinner) findViewById(R.id.turnTypeSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterTurnType = ArrayAdapter.createFromResource(this,
@@ -101,6 +101,7 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
         adapterTurnType.setDropDownViewResource(R.layout.my_simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         turnTypeSpinner.setAdapter(adapterTurnType);
+        */
 
         winTypeSpinner = (Spinner) findViewById(R.id.winTypeSpinner);
         ArrayAdapter<CharSequence> adapterWinType = ArrayAdapter.createFromResource(this,
@@ -110,6 +111,7 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
 
         winningScoreEditText = (EditText) findViewById(R.id.winningScoreEditText);
         winningScoreEditText.setText("100");//TODO change to a set default based on the game type( hearts, etc)
+        winningScoreEditText.setSelection(winningScoreEditText.getText().length());
 
     }
 
@@ -121,7 +123,8 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
         String gameType = gameTypeSpinner.getSelectedItem().toString();
         game.setGameType(gameType);
 
-        String turnType = turnTypeSpinner.getSelectedItem().toString();
+        //String turnType = turnTypeSpinner.getSelectedItem().toString(); //TODO implement turns
+        String turnType = "Rounds";
         game.setTurnType(turnType);
 
         String winType = winTypeSpinner.getSelectedItem().toString();
@@ -138,6 +141,8 @@ public class NewGameActivity extends ActionBarActivity implements View.OnClickLi
         }
 
         game.setWinningScore(winningScore);
+
+        game.setNumRounds(1); //TODO: Make a default value (not hardcoded)
 
         return game;
     }

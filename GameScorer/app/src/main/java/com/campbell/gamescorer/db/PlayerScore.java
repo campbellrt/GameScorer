@@ -3,6 +3,7 @@ package com.campbell.gamescorer.db;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
@@ -17,6 +18,8 @@ public class PlayerScore implements Parcelable {
     private long roundScore;
     private int playerNumber;
 
+    private ArrayList<Long> roundScores;
+
     public PlayerScore() {
     }
 
@@ -26,6 +29,8 @@ public class PlayerScore implements Parcelable {
         score = in.readLong();
         roundScore = in.readLong();
         playerNumber = in.readInt();
+        roundScores = new ArrayList<Long>();
+        in.readList(roundScores, null);
     }
 
     @Override
@@ -40,6 +45,7 @@ public class PlayerScore implements Parcelable {
         dest.writeLong(score);
         dest.writeLong(roundScore);
         dest.writeInt(playerNumber);
+        dest.writeList(roundScores);
     }
 
     public static final Parcelable.Creator<PlayerScore> CREATOR = new Parcelable.Creator<PlayerScore>() {
@@ -87,10 +93,24 @@ public class PlayerScore implements Parcelable {
         this.playerNumber = playerNumber;
     }
 
+    public void initRoundScores() {
+        this.roundScores = new ArrayList<Long>();
+    }
+    public ArrayList<Long> getRoundScores() {
+        return roundScores;
+    }
+    public void addRoundScores(long roundScore) {
+        this.roundScores.add(roundScore);
+    }
+
     @Override
     public String toString() {
         return "PlayerScore [id=" + id + ", name=" + name + ", playerNumber=" + playerNumber
                 + ", score=" + score + "]";
+    }
+
+    public String getLeaderBoardString() {
+        return name + " - " + score +"\n";
     }
 
     public static Comparator<PlayerScore> sortByPlayerNumber() {
