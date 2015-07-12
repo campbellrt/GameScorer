@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:text="@string/default_player_name"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/default_player_name_text_size"
+        />
 
     <RelativeLayout
         android:id="@+id/player_score"
@@ -24,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/default_name_player_score"
-            android:textSize="20sp"
+            android:textSize="@dimen/default_score_text_size"
 
             />
 
@@ -34,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="@string/default_score"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="@dimen/default_score_text_size"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
             android:layout_toRightOf="@id/name_text_score"
@@ -53,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/default_name_round_player_score"
-            android:textSize="20sp"
+            android:textSize="@dimen/default_score_text_size"
 
             />
 
@@ -63,7 +65,7 @@
             android:layout_height="wrap_content"
             android:text="@string/default_score"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="@dimen/default_score_text_size"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
             android:layout_toRightOf="@id/name_round_text_score"

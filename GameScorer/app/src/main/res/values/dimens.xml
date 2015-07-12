@@ -3,4 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="portrait_max_player_score_size">100dp</dimen>
+
+    <!-- Text sizes. -->
+    <dimen name="default_score_text_size">18sp</dimen>
+    <dimen name="default_player_name_text_size">14sp</dimen>
+
+
 </resources>

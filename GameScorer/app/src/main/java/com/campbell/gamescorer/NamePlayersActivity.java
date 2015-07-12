@@ -34,12 +34,9 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
             R.id.player_27, R.id.player_28, R.id.player_29, R.id.player_30
     };
 
-    private Button okButton;
-
     private Game game;
 
-    private ArrayList<AutoCompleteTextView> playerEditTexts = new ArrayList<AutoCompleteTextView>();
-    private ArrayList<View> playerViews = new ArrayList<View>();
+    private ArrayList<AutoCompleteTextView> playerEditTexts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +101,6 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
         for(int i = 0; i <game.getNumPlayers(); i++){
             int id  = PLAYER_VIEW_IDS[i];
             View view = getPlayerView(id);
-            playerViews.add(view);
             playerEditTexts.add((AutoCompleteTextView) view.findViewById(R.id.player_name_edit_text));
         }
 
@@ -122,7 +118,7 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
             }
         }
 
-        okButton = (Button) findViewById(R.id.button_ok);
+        Button okButton = (Button) findViewById(R.id.button_ok);
         okButton.setOnClickListener(this);
     }
 
@@ -154,7 +150,7 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
         String[] playerNames = getPlayerNames();
 
-        List<PlayerScore> playerScores = new ArrayList<PlayerScore>();
+        List<PlayerScore> playerScores = new ArrayList<>();
 
         for (int i = 0; i < playerNames.length; i++) {
 

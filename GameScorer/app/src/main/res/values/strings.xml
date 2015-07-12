@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Game Scorer</string>
 
-    <string name="hello_world">Hello world!</string>
+    <!-- Main Activity-->
     <string name="action_settings">Settings</string>
-    <string name="title_activity_playerscreen">Player Screen</string>
+    <string name="title_activity_playerscreen">Play</string>
     <string name="button_new_game">New Game</string>
 
+    <!-- New game activity -->
+    <string name="default_winning_score">100</string>
 
     <string name="title_activity_new_game">New Game</string>
     <string name="button_confirm_players">Confirm</string>
@@ -15,14 +17,17 @@
     <string name="text_win_type">Win type:</string>
     <string name="text_winning_score">Winning Score:</string>
 
-    <string name="title_activity_name_players">NamePlayersActivity</string>
+
+    <!-- Name Players -->
+    <string name="title_activity_name_players">Name Players</string>
 
     <string name="button_ok">OK</string>
     <string name="text_player">Player</string>
-    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_game"></string>
 
-
+    <!-- Player Screen -->
     <string name="default_score">0</string>
+    <string name="default_round_score">0</string>
     <string name="default_player_name">Player</string>
     <string name="default_name_player_score">Score:</string>
     <string name="default_name_round_player_score">This round:</string>

@@ -16,6 +16,8 @@ import com.campbell.gamescorer.db.PlayerScore;
 
 /**
  * Created by Campbell on 27/04/2015.
+ *
+ * Main game area for one player.
  */
 public class PlayerView implements View.OnClickListener, View.OnLongClickListener {
 
@@ -101,8 +103,8 @@ public class PlayerView implements View.OnClickListener, View.OnLongClickListene
     public void incrementScore() {
         playerScore.setScore(playerScore.getScore() + playerScore.getRoundScore());
         playerScore.addRoundScores(playerScore.getRoundScore());
-        roundScoreTextView.setText("0"); //TODO change to a default score
-        playerScore.setRoundScore(0); //TODO change to a default score
+        roundScoreTextView.setText(context.getString(R.string.default_round_score)); //default 0
+        playerScore.setRoundScore(Integer.parseInt(context.getString(R.string.default_round_score))); //default 0
         scoreTextView.setText(Long.toString(playerScore.getScore()));
 
     }
@@ -158,6 +160,10 @@ public class PlayerView implements View.OnClickListener, View.OnLongClickListene
         return 0;
     }
 
+    public void updateValues() {
+        scoreTextView.setText(Long.toString(playerScore.getScore()));
+        roundScoreTextView.setText(Long.toString(playerScore.getRoundScore()));
+    }
 
     @Override
     public boolean onLongClick(View view) {

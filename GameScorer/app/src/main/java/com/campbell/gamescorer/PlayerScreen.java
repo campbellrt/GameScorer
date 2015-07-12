@@ -40,7 +40,7 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
 
     protected List<PlayerView> playerViews;
     private Button endRoundButton;
-    public Context gameContext;
+    private Context gameContext;
     private Game game;
 
     @Override
@@ -78,7 +78,7 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
 
     private void setUpWidgets() {
 
-        playerViews = new ArrayList<PlayerView>();
+        playerViews = new ArrayList<>();
         gameContext = this;
         for (int i = 0; i < game.getPlayerScores().size(); i++) {
 
@@ -89,6 +89,7 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
             PlayerView playerView = new PlayerView(this, view, playerScore);
 
             playerViews.add(playerView);
+            playerView.updateValues();
         }
 
         endRoundButton = (Button) findViewById(R.id.button_end_round);
@@ -141,6 +142,7 @@ public class PlayerScreen extends ActionBarActivity implements View.OnClickListe
         alert.setMessage(message);
         alert.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                game.setWinningScore(-1); //Continue infintly
                 dialog.dismiss();
             }
         });

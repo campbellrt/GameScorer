@@ -8,6 +8,8 @@ import java.util.Comparator;
 
 /**
  * Created by Campbell on 27/04/2015.
+ *
+ * Implements the information for a single player including score and name
  */
 
 public class PlayerScore implements Parcelable {
@@ -29,7 +31,7 @@ public class PlayerScore implements Parcelable {
         score = in.readLong();
         roundScore = in.readLong();
         playerNumber = in.readInt();
-        roundScores = new ArrayList<Long>();
+        roundScores = new ArrayList<>();
         in.readList(roundScores, null);
     }
 
@@ -94,7 +96,7 @@ public class PlayerScore implements Parcelable {
     }
 
     public void initRoundScores() {
-        this.roundScores = new ArrayList<Long>();
+        this.roundScores = new ArrayList<>();
     }
     public ArrayList<Long> getRoundScores() {
         return roundScores;

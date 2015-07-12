@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Created by Campbell on 9/05/2015.
+ *
+ * Class for the game object
  */
 public class Game implements Parcelable {
 
@@ -39,7 +41,7 @@ public class Game implements Parcelable {
         winningScore = in.readInt();
         numRounds = in.readInt();
 
-        playerScores = new ArrayList<PlayerScore>();
+        playerScores = new ArrayList<>();
         while (true) {
             PlayerScore playerScore = in.readParcelable(PlayerScore.class.getClassLoader());
             if (playerScore == null) {

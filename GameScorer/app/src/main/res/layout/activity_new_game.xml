@@ -53,6 +53,7 @@
             android:gravity="right"/>
     </RelativeLayout>
 
+    <!-- TODO implement Turns
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,13 +77,13 @@
             android:layout_toEndOf="@id/text_turn_type"
             android:gravity="right"/>
     </RelativeLayout>
+    -->
 
-    <!-- TODO implement Turns
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/winTypeLayout"
-        android:layout_below="@id/turnTypeLayout"
+        android:layout_below="@id/gameTypeLayout"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
@@ -101,14 +102,14 @@
             android:layout_toEndOf="@id/text_win_type"
             android:gravity="right"/>
     </RelativeLayout>
-    -->
+
 
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/winningScoreLayout"
-        android:layout_below="@id/gameTypeLayout"
+        android:layout_below="@id/winTypeLayout"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 

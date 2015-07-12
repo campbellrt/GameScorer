@@ -35,6 +35,7 @@
     <string-array name="game_type_array">
         <item>Custom</item>
         <item>Hearts</item>
+        <item>500 (6 people)</item>
     </string-array>
 
     <string-array name="turn_type_array">
@@ -43,8 +44,8 @@
     </string-array>
 
     <string-array name="win_type_array">
-        <item>Highest Score</item>
         <item>Lowest Score</item>
+        <item>Highest Score</item>
     </string-array>
 
 
