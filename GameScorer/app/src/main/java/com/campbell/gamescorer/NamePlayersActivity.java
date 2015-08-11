@@ -23,6 +23,7 @@ import java.util.List;
 public class NamePlayersActivity extends ActionBarActivity implements View.OnClickListener {
 
     public static final String EXTRA_GAME = "newGame";
+    public static final String EXTRA_PLAYER_NAMES = "playerNames";
 
     private static final int[] PLAYER_VIEW_IDS = { R.id.player_1, R.id.player_2,
             R.id.player_3, R.id.player_4, R.id.player_5, R.id.player_6,
@@ -40,6 +41,8 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Called when the instance is first created. Sets up the window      */
+
         super.onCreate(savedInstanceState);
 
         // prevents the soft keyboard from immediately popping up
@@ -75,7 +78,34 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
         return super.onOptionsItemSelected(item);
     }
     @Override
+    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        String[] playerNames = savedInstanceState.getStringArray(EXTRA_PLAYER_NAMES);
+        for (int i = 0; i < game.getNumPlayers(); i++) {
+            String hint = getString(R.string.text_player) + ' ' + (i + 1);
+            if (playerNames[i].equals(hint)) {
+                playerEditTexts.get(i).setHint(playerNames[i]);
+            }
+            else {
+                playerEditTexts.get(i).setText(playerNames[i]);
+            }
+        }
+        //TODO: Set ime cursor to the same position
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArray(EXTRA_PLAYER_NAMES, getPlayerNames());
+
+    }
+
+
+    @Override
     public void onClick(View view){
+        // Where Button clicks are handled
+
         switch (view.getId()) {
             case R.id.button_ok:
                 // ok button clicked
@@ -97,13 +127,16 @@ public class NamePlayersActivity extends ActionBarActivity implements View.OnCli
 
 
     private void setUpWidgets() {
+        //Sets up the ui for the number of players
 
+        //adds the view
         for(int i = 0; i <game.getNumPlayers(); i++){
             int id  = PLAYER_VIEW_IDS[i];
             View view = getPlayerView(id);
             playerEditTexts.add((AutoCompleteTextView) view.findViewById(R.id.player_name_edit_text));
         }
 
+        //Sets up the default names
         for (int i = 0; i < playerEditTexts.size(); i++) {
             AutoCompleteTextView playerEditText = playerEditTexts.get(i);
             if (playerEditText == null) {
